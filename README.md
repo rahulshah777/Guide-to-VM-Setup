@@ -1,78 +1,181 @@
-# Guide-to-VM-Setup
+# Mobile App Development Project — README & Wiki Outline
 
-A structured academic discussion and wiki resource covering UI design principles, conversation design guidelines, and digital infrastructure considerations as applied to mobile app development.
+Course: App Development Concepts  
+Student: Rahul Shah  
+GitHub Repository: Guide-to-VM-Setup 
+Last Updated: April 2026
 
-📋 Table of Contents
+---
 
-Overview
-Topics Covered
-Key Concepts
+## Version Changelog
 
-UI Design for Android
-Google Conversation Design
-Wireframes & Digital Infrastructure
+| Version | Date | Status | Description |
+|---------|------|--------|-------------|
+| v1.0 | Week 1 | ✅ Complete | Initial project concept and app idea submitted |
+| v2.0 | Week 3 | ✅ Complete | App architecture outline; identified UI/data layer structure |
+| v3.0 | Week 5 | ✅ Complete | Database design added; SQLite schema drafted; wireframes created |
+| v4.0 | Week 6 | 🔄 Current|SQLite integration updated; Wiki published; GitHub push completed|
+| v5.0 | Week 7 | 🔜 Planned | Final code complete; README finalized; full GitHub push |
+| v6.0 | Week 8 | 🔜 Planned | Final submission; polished code; presentation-ready |
 
+---
 
-The 5W1H of App Design
-Resources & References
-APA References
+## Project Overview
 
+ App Name:  [Your App Name]  
+ Platform:  Android  
+ Language:  Kotlin  
+ Database:  SQLite (local), with optional GCP cloud backend  
+ Architecture Pattern:  Google Jetpack — UI Layer / Data Layer / Optional Domain Layer
 
-Overview
-This project explores the foundations of app design and development, bridging theoretical concepts with practical guidelines from industry leaders such as Google. It builds upon concepts introduced in Modules 1–3 and applies them to a comprehensive discussion of app design principles, conversation design, and infrastructure planning.
+Purpose: [Brief 1–2 sentence description of what your app does and who it serves.]
 
-Topics Covered
-TopicSourceAndroid UI Design PrinciplesMockplus BlogGoogle Conversation Design GuidelinesGoogle for DevelopersInteractive Canvas DesignGoogle Assistant DocsDigital Infrastructure ConsiderationsCognizant WhitepaperWireframing ConceptsModule Lessons + External Resources
+---
 
-Key Concepts
-UI Design for Android
-Effective Android app design is guided by Material Design, Google's visual language framework. Core principles include:
+## Module 5 Updates (v3.0 — Previous)
 
-Visual Hierarchy – Use grids, whitespace, and content-first layouts to guide user attention.
-Standard System Patterns – Reuse common components (navigation, color schemes, layouts) to reduce cognitive load and development cost.
-Motion Design – Use animation to convey spatial relationships between UI states and views.
-Accessibility – Design for all users regardless of ability; follow contrast ratios, touch target sizes, and screen reader support.
-Device Optimization – Account for varying hardware specs, screen sizes, and platform capabilities.
-Prototyping & Testing – Validate design decisions early through wireframes, prototypes, and iterative testing.
+- Defined the app's data requirements based on wireframe screens
+- Selected SQLite as the local database solution
+- Drafted initial schema (tables and columns mapped from wireframe fields)
+- Identified the need for a Contract Class to manage column name constants
+- Reviewed Google's recommendation to use the Room Persistence Library as an abstraction layer above SQLite
 
+---
 
-Google Conversation Design
-Google's Conversation Design framework provides a structured process for building voice and interactive canvas experiences. Key topic areas include:
-TopicRole in App DesignWhat is Conversation Design?Establishes the discipline of designing natural, human-centered interactionsLearn About ConversationTeaches the principles of human dialogue to inform AI interactionsIs Conversation the Right Fit?Helps teams evaluate whether voice/conversational UI fits the use caseGather RequirementsDefines user needs, personas, and goals before design beginsCreate a PersonaEstablishes a consistent voice, tone, and personality for the appConversation Design ProcessStep-by-step methodology from ideation to scripting and testing
+## Module 6 Updates (v4.0 — Current)
 
-Wireframes & Digital Infrastructure
-Wireframes are low-fidelity blueprints that map out app layout, user flows, and interaction patterns before development begins. They serve as the bridge between concept and code.
-Why Wireframes Matter:
+### Changes Made This Week
 
-Align stakeholders on layout and functionality early
-Reduce costly design revisions during development
-Serve as a communication tool between designers and developers
-Enable usability testing at minimal cost
+-  SQLiteOpenHelper implemented:  Created `AppDbHelper.kt` extending `SQLiteOpenHelper`, overriding `onCreate()` and `onUpgrade()`
+-  Schema finalized:  Contract class created with all table and column constants
+-  CRUD operations coded:  Insert, query, update, and delete methods completed and tested
+-  Wireframe-to-Database mapping confirmed:  All wireframe fields now correspond to database columns
+-  Wiki published:  Instructional SQLite Wiki posted to GitHub repository Wiki tab
+-  GitHub push completed:  Latest code pushed to GitHub Classroom repository
 
-Digital Infrastructure Considerations (Cognizant, 2015) that intersect with design include:
+### Current Database Schema
 
-Scalability of UI components across platforms
-Security and data handling in user-facing interfaces
-Performance optimization for different network conditions
-Cloud-readiness of app architecture decisions
+```
+Table: users
+  - _id          INTEGER PRIMARY KEY
+  - username     TEXT
+  - email        TEXT
+  - created_at   TEXT
 
+Table: entries
+  - _id          INTEGER PRIMARY KEY
+  - user_id      INTEGER (foreign key → users._id)
+  - title        TEXT
+  - content      TEXT
+  - timestamp    TEXT
+```
 
-The 5W1H of App Design
-QuestionAnswerWhoUX designers, developers, product managers, and end usersWhatThe visual, functional, and conversational design of a mobile or web applicationWhenDesign must occur before development — wireframing and prototyping are pre-development activitiesWhereMobile devices, smart displays, desktops, and voice-enabled platformsHowThrough adherence to platform guidelines (Material Design), iterative prototyping, and user testingWhyPoor design leads to user abandonment; thoughtful design drives retention, accessibility, and trust
+### Wireframe Summary
 
-Resources & References
+The app consists of the following screens (each mapped to database tables above):
 
-📖 Beginner's Guide to Android App Design – Mockplus
-🗣️ Google Conversation Design Guidelines
-🎨 Google Design Guidelines – Conversation
-🧩 Interactive Canvas Sample Walkthrough – Google
-🏗️ 10 Key Digital Infrastructure Considerations – Cognizant
-📚 Purdue OWL APA Style Guide
+1.  Login / Registration Screen  → reads/writes `users` table
+2.  Dashboard / Home Screen  → queries `entries` table by `user_id`
+3.  New Entry Screen  → inserts into `entries` table
+4.  Entry Detail Screen  → reads and updates a single `entries` row
+5.  Settings Screen  → updates `users` table fields
 
+### Architecture Layers (Current)
 
-APA References
-Babich, N. (2018). The beginner's guide to Android app design. Mockplus. https://www.mockplus.com/blog/post/android-app-design
-Cognizant. (2015). 10 key digital infrastructure considerations (CODEx3520). https://www.cognizant.com/whitepapers/10-key-digital-infrastructure-considerations-codex3520.pdf
-Google. (n.d.). Conversation design. Google for Developers. https://developers.google.com/assistant/conversation-design/welcome
-Laubheimer, P. (2020). Wireframing for usability. Nielsen Norman Group. https://www.nngroup.com/articles/wireframing-usability/
-Tidwell, J., Brewer, C., & Valencia, A. (2020). Designing interfaces: Patterns for effective interaction design (3rd ed.). O'Reilly Media.
+```
+┌─────────────────────────────┐
+│         UI Layer            │  Activities / Fragments / Jetpack Compose
+├─────────────────────────────┤
+│      Domain Layer           │  Use Cases (optional — added for reused logic)
+├─────────────────────────────┤
+│       Data Layer            │  Repositories → SQLiteOpenHelper / Room
+└─────────────────────────────┘
+```
+
+---
+
+## Planned Updates (v5.0 — Next)
+
+- [ ] Migrate raw SQLite calls to Room Persistence Library
+- [ ] Connect GCP Cloud SQL as optional remote backup
+- [ ] Complete all remaining UI screens
+- [ ] Add input validation and error handling
+- [ ] Write unit tests for database operations
+- [ ] Update README with final architecture diagram
+
+---
+
+## SQLite Wiki — Quick Reference for Classmates
+
+> Full Wiki available on the repository Wiki tab.
+
+### Step 1 — Define Your Schema (Contract Class)
+```kotlin
+object AppContract {
+    object UserEntry : BaseColumns {
+        const val TABLE_NAME = "users"
+        const val COLUMN_USERNAME = "username"
+        const val COLUMN_EMAIL = "email"
+    }
+}
+```
+
+### Step 2 — Create the Database
+```kotlin
+class AppDbHelper(context: Context) : SQLiteOpenHelper(context, "App.db", null, 1) {
+    override fun onCreate(db: SQLiteDatabase) {
+        db.execSQL("CREATE TABLE users (_id INTEGER PRIMARY KEY, username TEXT, email TEXT)")
+    }
+    override fun onUpgrade(db: SQLiteDatabase, old: Int, new: Int) {
+        db.execSQL("DROP TABLE IF EXISTS users")
+        onCreate(db)
+    }
+}
+```
+
+### Step 3 — Insert Data
+```kotlin
+val db = dbHelper.writableDatabase
+val values = ContentValues().apply {
+    put(AppContract.UserEntry.COLUMN_USERNAME, "JohnDoe")
+    put(AppContract.UserEntry.COLUMN_EMAIL, "john@example.com")
+}
+db.insert(AppContract.UserEntry.TABLE_NAME, null, values)
+```
+
+### Step 4 — Query Data
+```kotlin
+val cursor = db.query("users", null, null, null, null, null, null)
+while (cursor.moveToNext()) {
+    val name = cursor.getString(cursor.getColumnIndexOrThrow("username"))
+}
+cursor.close()
+```
+
+### Step 5 — Close Connection
+```kotlin
+override fun onDestroy() {
+    dbHelper.close()
+    super.onDestroy()
+}
+```
+
+---
+
+## GCP Integration Note
+
+Google Cloud Platform credits can be used to provision a  Cloud SQL (MySQL)  or  Firebase Realtime Database  instance as a remote backend. The app uses SQLite locally for offline access, then syncs to GCP when a network connection is available — implementing Google's recommended offline-first architecture.
+
+---
+
+## References
+
+Android Developers. (2026).   Guide to app architecture  . Google. https://developer.android.com/topic/architecture
+
+Android Developers. (2025).   Save data using SQLite  . Google. https://developer.android.com/training/data-storage/sqlite
+
+GitHub. (2024).   Introduction to GitHub  . https://lab.github.com/githubtraining/introduction-to-github
+
+GitHub. (2024).   Hello World  . https://guides.github.com/activities/hello-world/
+
+Simform. (2023).   Mobile app database selection  . https://www.simform.com/mobile-app-developers-database-selection/
